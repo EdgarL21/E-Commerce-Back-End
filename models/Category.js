@@ -24,7 +24,7 @@ Category.init(
     timestamps: false, // creates two new columns
     freezeTableName: true, // Prevent sequelize from renaming the table
     underscored: true, // gives underscores to some of the names in columns
-    modelName: "category", // makes name of table in mysql
+    modelName: "category", // makes name of table in database
   }
 );
 

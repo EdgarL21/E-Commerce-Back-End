@@ -12,13 +12,18 @@ router.get("/", async (req, res) => {
       // includes the model Category and Tag to ecch Product
       include: [{ model: Category }, { model: Tag }],
     });
+    // console.log("Got All 1");
+    console.log("Sucessfully Got all products.");
     // if no error good then send back data to browser/postman
+    // console.log("Got All 2");
     res.status(200).json(productData);
+    // console.log("Got All 3");
     // if an error catch it
   } catch (err) {
     // semnd back error
     res.status(500).json(err);
   }
+  // console.log("Got All 4");
 });
 
 // get one product
@@ -29,6 +34,7 @@ router.get("/:id", async (req, res) => {
     const productData = await Product.findByPk(req.params.id, {
       include: [{ model: Category }, { model: Tag }],
     });
+    console.log("Sucessfully Got a product.");
     // if no error good then send back data to browser/postman
     res.status(200).json(productData);
     // if an error catch it
@@ -112,19 +118,30 @@ router.put("/:id", (req, res) => {
     });
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", async (req, res) => {
   // delete one product by its `id` value
   try {
-    const productData = await Product.destroy(req.params.id, {
-      where: [{ id: req.params.id }],
+    const productData = await Product.destroy({
+      where: {
+        id: req.params.id,
+      },
     });
+    // console.log("Deleted One 1");
+    if (!productData) {
+      res.status(404).json({ message: "No product found with that id!" });
+      return;
+    }
+    // console.log("Deleted One 2");
+    console.log("Sucessfully Deleted a product.");
     // if no error good then send back data to browser/postman
-    res.status(200).json(productData);
+    res.status(200).json(productData); // After this is done it exits the console.log() below doesnt get lgged
+    // console.log("Deleted One 3");
     // if an error catch it
   } catch (err) {
     // send back error
     res.status(500).json(err);
   }
+  // console.log("Deleted One 4");
 });
 
 module.exports = router;

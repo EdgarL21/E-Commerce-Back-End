@@ -12,6 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 // turn on routes
 app.use(routes);
 
+// Connect to the database before starting the Express.js server
 // sync sequelize models to the database, then turn on the server
 // turn on connection to db and server
 sequelize.sync({ force: false }).then(() => {

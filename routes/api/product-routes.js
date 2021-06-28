@@ -9,7 +9,7 @@ router.get("/", async (req, res) => {
   // be sure to include its associated Category and Tag data
   try {
     const productData = await Product.findAll({
-      // includes the model Category and Tag to ecch Product
+      // includes the model Category and Tag to each Product
       include: [{ model: Category }, { model: Tag }],
     });
     // console.log("Got All 1");
@@ -20,7 +20,7 @@ router.get("/", async (req, res) => {
     // console.log("Got All 3");
     // if an error catch it
   } catch (err) {
-    // semnd back error
+    // send back error
     res.status(500).json(err);
   }
   // console.log("Got All 4");
@@ -32,6 +32,7 @@ router.get("/:id", async (req, res) => {
   // be sure to include its associated Category and Tag data
   try {
     const productData = await Product.findByPk(req.params.id, {
+            // includes the model Category and Tag to each Product
       include: [{ model: Category }, { model: Tag }],
     });
     console.log("Sucessfully Got a product.");
@@ -39,7 +40,7 @@ router.get("/:id", async (req, res) => {
     res.status(200).json(productData);
     // if an error catch it
   } catch (err) {
-    // semnd back error
+    // send back error
     res.status(500).json(err);
   }
 });
